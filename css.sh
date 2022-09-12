@@ -1,31 +1,14 @@
-PX="0 1 2 4 6 8 12 16 24 32 48 64 96 128 192 256"
-
-for prop in margin padding; do
-  for dim in top left; do
-    for px in $PX; do
-      echo ".${prop::1}${dim::1}-$px { $prop-$dim: ${px}px !important }"
-    done
-  done
-  for px in $PX; do
-    echo ".${prop::1}x-$px { $prop-inline: ${px}px !important }"
-    echo ".${prop::1}y-$px { $prop-block: ${px}px !important }"
-    echo ".${prop::1}-$px { $prop-block: ${px}px !important; $prop-inline ${px}px !important }"
-  done
-done
-
 cat <<EOF
-
-.flex { display: flex !important }
 .block { display: block !important }
 .inline-block { display: inline-block !important }
 
+.flex { display: flex !important }
 .flex-col { flex-direction: column !important }
 .flex-row { flex-direction: row !important }
 .flex-1 { flex: 1 !important }
 
 .items-center { align-items: center !important }
 .justify-center { justify-content: center !important }
-
 .text-center { text-align: center !important }
 
 .font-thin { font-weight: 100 !important }
@@ -46,12 +29,11 @@ cat <<EOF
 .leading-160 { line-height: 1.6 }
 
 .shadow-sm { box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05) !important }
-.shadow { box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1) !important }
-.shadow-md { box-shadow: 0 1px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1) !important }
-.shadow-lg { box-shadow: 0 2px 16px -4px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1) !important }
-.shadow-xl { box-shadow: 0 2px 24px -6px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1) !important }
-.shadow-2xl { box-shadow: 0 4px 48px -12px rgb(0 0 0 / 0.25) !important }
-.shadow-inner { box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.05) !important }
+.shadow { box-shadow: 0 1px 3px 0 #0002, 0 1px 2px -1px #0002 !important }
+.shadow-md { box-shadow: 0 1px 6px -1px #0002, 0 2px 4px -2px #0002 !important }
+.shadow-lg { box-shadow: 0 2px 16px -4px #0002, 0 4px 6px -4px #0002 !important }
+.shadow-xl { box-shadow: 0 2px 24px -6px #0002, 0 8px 10px -6px #0002 !important }
+.shadow-inner { box-shadow: inset 0 1px 3px 0 #0001 !important }
 .shadow-none { box-shadow: none !important }
 
 .pointer-events-none { pointer-events: none !important }
@@ -73,3 +55,25 @@ cat <<EOF
 
 EOF
 
+PX="0 1 2 4 6 8 12 16 24 32 48 64 96 128 192 256"
+
+for prop in margin padding; do
+  for dim in top left bottom right; do
+    for px in $PX; do
+      echo ".${prop::1}${dim::1}-$px { $prop-$dim: ${px}px !important }"
+    done
+    echo
+  done
+  for px in $PX; do
+    echo ".${prop::1}-$px { $prop-block: ${px}px !important; $prop-inline ${px}px !important }"
+  done
+  echo
+  for px in $PX; do
+    echo ".${prop::1}x-$px { $prop-inline: ${px}px !important }"
+  done
+  echo
+  for px in $PX; do
+    echo ".${prop::1}y-$px { $prop-block: ${px}px !important }"
+  done
+  echo
+done
